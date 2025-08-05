@@ -8,6 +8,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const productRoutes = require('./routes/productRoutes');
+const orderRoutes = require('./routes/orderRoutes'); // 修正产品路由路径
 const cors = require('cors');
 
 
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/products', productRoutes); // 修正产品路由路径
+app.use('/api/orders', orderRoutes); // 添加订单路由
 
 // 404处理
 app.use(function(req, res, next) {
