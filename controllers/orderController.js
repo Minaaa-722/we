@@ -29,6 +29,8 @@ exports.createOrder = async (req, res) => {
     const connection = await pool.getConnection();
     await connection.beginTransaction();
 
+    console.log("开始创建订单");
+
     // 1. 查询商品（含库存和款式）
     const [productRows] = await connection.execute(
       'SELECT * FROM products WHERE id = ? FOR UPDATE',
@@ -42,7 +44,7 @@ exports.createOrder = async (req, res) => {
       });
     }
     const product = productRows[0];
-    const styles = JSON.parse(product.styles || '[]');
+    const styles = product.styles;
 
     // 2. 库存校验（含具体缺额提示）
     if (product.remaining < quantity) {
@@ -61,15 +63,15 @@ exports.createOrder = async (req, res) => {
       selectedStyles.push(style);
     }
 
+  
+
     // 4. 构建用户信息（对齐前端入参）
     const userInfo = {
       name: userName || '匿名用户',
       address: address || '',
       number: number || '',
-      selected_styles: selectedStyles.map(style => ({
-        selected_style_id: style.id,
-        selected_style_name: style.name
-      }))
+      selected_styles:selectedStyles
+       
     };
 
     // 5. 生成订单号 & 写入数据库
@@ -105,16 +107,29 @@ exports.createOrder = async (req, res) => {
     await connection.commit();
     // 释放连接回连接池
     connection.release();
-
+    console.log("订单创建成功，订单号:", orderNo);
     // 7. 返回前端需要的完整数据
     res.status(201).json({
       orderId,
       orderNo,
+      product: {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        
+      },
+      userInfo: {
+        name: userInfo.name,
+        address: userInfo.address,
+        number: userInfo.number
+      },
       selectedStyles,
       status: 1,
       totalAmount: product.price * quantity,
-      quantity: quantity
+      quantity: quantity,
+      createdAt: new Date().toISOString()
     });
+
 
   } catch (err) {
     console.error('创建订单失败:', err);
@@ -150,14 +165,12 @@ exports.unboxOrder = async (req, res) => {
       return res.status(404).json({ error: '订单不存在' });
     }
     const order = orderRows[0];
-    const userInfo = JSON.parse(order.user_info);
+    const userInfo = order.user_info;
     const selectedStyles = userInfo.selected_styles;
+    
     const orderStatus = order.status;
 
-    if (orderStatus === 0) {
-      await connection.rollback();
-      return res.status(400).json({ error: '订单已拆盒' });
-    }
+  
 
     // 2. 更新订单状态
     await connection.execute(
@@ -203,7 +216,7 @@ exports.getUserOrders = async (req, res) => {
       let userInfo = {};
       if (order.user_info) {
         try {
-          userInfo = JSON.parse(order.user_info);
+          userInfo = order.user_info;
         } catch (parseErr) {
           console.error('解析user_info失败:', parseErr);
           userInfo = {};
@@ -238,8 +251,8 @@ exports.getOrderById = async (req, res) => {
     }
 
     const order = orderRows[0];
-    const userInfo = JSON.parse(order.user_info);
-    const productStyles = JSON.parse(order.product_styles);
+    const userInfo = order.user_info;
+    const productStyles = order.product_styles;
 
     res.json({
       ...order,
