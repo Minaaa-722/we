@@ -2,10 +2,16 @@ const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/productController');
 
-// 获取所有产品数据的接口
-router.get('/', productController.getAllProducts);
+// 手动打印所有路由
+console.log('注册路由：');
+console.log('GET / → getAllProducts');
+console.log('GET /:id → getProductById');
 
-// 获取单个产品数据的接口（根据ID）
+
+router.get('/', productController.getAllProducts);
+router.get('/search', productController.searchProducts);
+
 router.get('/:id', productController.getProductById);
+
 
 module.exports = router;
