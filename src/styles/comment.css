@@ -1,0 +1,99 @@
+/* 整体评论容器 */
+.comment-container {
+    padding: 20px;
+    border: 2px dotted #ffc0cb; /* 粉色点状边框，更显可爱 */
+    border-radius: 15px; /* 更大的圆角，增加圆润感 */
+    background-color: #fff0f5; /* 淡粉色背景 */
+    box-shadow: 0 0 10px rgba(255, 192, 203, 0.5); /* 淡淡的粉色阴影 */
+}
+
+/* 标题样式 */
+.comment-container h2 {
+    margin-bottom: 15px;
+    color: #ff69b4; /* 粉色标题，更亮眼可爱 */
+    font-size: 24px;
+    font-family: 'Comic Sans MS', cursive; /* 使用可爱的字体，可根据实际情况调整是否加载该字体 */
+    text-align: center; /* 标题居中 */
+    text-decoration: underline; /* 加上下划线装饰 */
+}
+
+/* 表单组通用样式 */
+.form-group {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #ffe4e1; /* 浅粉色背景，区分每组内容 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 柔和阴影 */
+}
+
+/* 标签样式 */
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #dc143c; /* 红色调，突出显示 */
+    font-size: 16px;
+    font-family: 'Comic Sans MS', cursive;
+}
+
+/* 文本域样式 */
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ffb6c1; /* 淡粉色边框 */
+    border-radius: 8px; /* 圆角 */
+    resize: vertical;
+    background-color: #fffafa; /* 极淡粉色背景 */
+    font-family: 'Comic Sans MS', cursive;
+    color: #8b0000; /* 较深的红色文字，增加对比度 */
+}
+
+/* 提交按钮样式 */
+.submit-btn {
+    padding: 8px 15px;
+    background-color: #ff69b4; /* 粉色按钮，可爱风格 */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Comic Sans MS', cursive;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 按钮阴影，增加立体感 */
+    transition: background-color 0.3s ease; /* 过渡效果，鼠标悬停变色更自然 */
+}
+
+/* 鼠标悬停在提交按钮上的样式 */
+.submit-btn:hover {
+    background-color: #ff1493; /* 按钮悬停变深粉色 */
+}
+
+/* 禁用状态的提交按钮样式 */
+.submit-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.8; /* 适当降低透明度表示禁用 */
+}
+
+/* 错误提示样式 */
+.error {
+    color: #dc143c; /* 红色文字表示错误 */
+    margin-top: 10px;
+    font-size: 14px;
+    font-family: 'Comic Sans MS', cursive;
+    text-align: center; /* 错误提示居中 */
+}
+
+/* 评论提交成功提示样式 */
+.comment-submitted {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #90ee90; /* 淡绿色背景，清新可爱 */
+    color: #228b22; /* 深绿色文字 */
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(144, 238, 144, 0.5); /* 淡绿色阴影 */
+    z-index: 1000;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 18px;
+    text-align: center; /* 内容居中 */
+}

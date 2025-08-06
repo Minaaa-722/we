@@ -1,0 +1,129 @@
+/* unbox.css - 可爱风格版 */
+
+.unbox-container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 25px 15px;
+  text-align: center;
+  font-family: "Comic Sans MS", "Marker Felt", cursive; /* 可爱手写体 */
+  background-color: #fff8f0; /* 浅暖底色 */
+  border-radius: 20px; /* 大圆角 */
+  box-shadow: 0 5px 15px rgba(255, 180, 190, 0.2); /* 柔和粉色阴影 */
+}
+
+.unbox-title {
+  font-size: 32px;
+  color: #ff6b8b; /* 可爱粉色 */
+  margin-bottom: 25px;
+  text-shadow: 2px 2px 4px rgba(255, 150, 170, 0.3); /* 文字阴影增强可爱感 */
+  letter-spacing: 1px;
+}
+
+.unbox-result {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.unboxed-style-item {
+  border: 2px dashed #ffc2d1; /* 虚线边框更活泼 */
+  border-radius: 15px; /* 圆润边角 */
+  padding: 20px 15px;
+  background-color: #ffffff;
+  width: 200px;
+  box-shadow: 0 4px 10px rgba(255, 180, 200, 0.15); /* 轻微上浮阴影 */
+  transition: transform 0.3s ease; /* 悬停动画 */
+}
+
+.unboxed-style-item:hover {
+  transform: translateY(-5px); /* 轻微上浮效果 */
+}
+
+.style-name {
+  font-size: 20px;
+  color: #ff85a1; /* 稍深粉色 */
+  margin-bottom: 12px;
+  font-weight: bold;
+}
+
+/* 盲盒款式图片样式 */
+.style-image {
+  width: 100%;
+  max-height: 150px;
+  object-fit: contain; /* 改为contain避免裁剪，适合可爱图案 */
+  border-radius: 10px;
+  background-color: #fff0f5; /* 图片背景色 */
+  padding: 5px;
+}
+
+.unbox-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 220px;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ffe0e9; /* 浅粉边框 */
+  border-top: 5px solid #ff6b8b; /* 深粉顶部 */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+/* 加载文字提示 */
+.unbox-loading::after {
+  content: "正在拆开惊喜哦～";
+  color: #ff85a1;
+  font-size: 16px;
+  animation: blink 1.5s infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.unbox-error {
+  color: #ff6b8b;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #fff0f5;
+  font-size: 16px;
+}
+
+.back-btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 50px; /* 圆形按钮更可爱 */
+  background-color: #ff85a1;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Comic Sans MS", cursive;
+  font-size: 16px;
+  box-shadow: 0 4px 0 #ff6b8b; /* 按钮底部阴影增强立体感 */
+}
+
+.back-btn:hover {
+  background-color: #ff6b8b;
+  transform: translateY(2px); /* 按下效果 */
+  box-shadow: 0 2px 0 #ff5274;
+}
+
+.back-btn:active {
+  transform: translateY(4px);
+  box-shadow: none;
+}

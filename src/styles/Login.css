@@ -1,0 +1,181 @@
+/* 登录页面容器 */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFF0F5; /* 可爱的浅粉色背景 */
+  padding: 1rem;
+}
+
+/* 登录卡片 */
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  background-color: white;
+  border-radius: 24px; /* 大圆角增加可爱感 */
+  padding: 2.5rem;
+  box-shadow: 0 8px 24px rgba(255, 105, 180, 0.15); /* 粉色系阴影 */
+  position: relative;
+  overflow: hidden;
+}
+
+/* 返回首页按钮 */
+.back-to-home {
+  display: inline-block;
+  color: #FF69B4;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.back-to-home:hover {
+  background-color: #FFE4E1;
+  color: #FF1493;
+}
+
+/* 卡片装饰元素 */
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 80px;
+  height: 80px;
+  background-color: #FFC0CB;
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+.login-card::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: -15px;
+  width: 100px;
+  height: 100px;
+  background-color: #FFB6C1;
+  border-radius: 50%;
+  opacity: 0.2;
+}
+
+/* 登录标题 */
+.login-title {
+  color: #FF69B4; /* 可爱的粉色标题 */
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  text-shadow: 1px 1px 3px rgba(255, 105, 180, 0.2);
+  position: relative;
+}
+
+.login-title::after {
+  content: '✨';
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+
+/* 表单组样式 */
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #FF69B4;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #FFE4E1;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #FFF8FA;
+}
+
+.form-group input::placeholder {
+  color: #FFC0CB;
+  opacity: 0.7;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #FF69B4;
+  box-shadow: 0 0 0 4px rgba(255, 105, 180, 0.1);
+}
+
+/* 错误提示 */
+.error-message {
+  background-color: #FFE4E1;
+  color: #FF69B4;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+  border: 1px solid #FFC0CB;
+  animation: shake 0.5s ease;
+}
+
+/* 错误抖动动画 */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+/* 登录按钮 */
+.login-btn {
+  width: 100%;
+  padding: 1rem;
+  background-color: #FF69B4;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(255, 105, 180, 0.2);
+}
+
+.login-btn:hover {
+  background-color: #FF1493;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(255, 105, 180, 0.3);
+}
+
+.login-btn:active {
+  transform: translateY(-1px);
+}
+
+/* 注册链接 */
+.register-link {
+  text-align: center;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.register-link a {
+  color: #FF69B4;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.register-link a:hover {
+  color: #FF1493;
+  text-decoration: underline;
+}
+    

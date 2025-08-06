@@ -1,0 +1,86 @@
+/* orderDetail.css - 可爱风格版 */
+
+/* 订单详情容器样式 */
+.order-detail-container {
+  width: 90%;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 25px;
+  background-color: #fff9f9; /* 浅粉色背景 */
+  border-radius: 20px; /* 大圆角 */
+  box-shadow: 0 5px 15px rgba(255, 180, 200, 0.2); /* 粉色柔和阴影 */
+  font-family: "Comic Sans MS", "Bubblegum Sans", cursive; /* 可爱手写字体 */
+  border: 2px dashed #ffccd5; /* 粉色虚线边框 */
+}
+
+/* 标题样式 */
+.order-detail-container h2 {
+  font-size: 28px;
+  color: #ff6b8b; /* 可爱粉色 */
+  margin-bottom: 15px;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(255, 150, 180, 0.2); /* 文字阴影 */
+  letter-spacing: 1px;
+}
+
+/* 状态文本样式 */
+.order-detail-container p {
+  font-size: 18px;
+  color: #ff85a1; /* 粉色系文字 */
+  margin-bottom: 20px;
+  line-height: 1.6;
+  padding: 8px 12px;
+  background-color: #fff0f5; /* 文本背景色 */
+  border-radius: 12px; /* 文本框圆角 */
+}
+
+/* 按钮通用样式 */
+.order-detail-container button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 50px; /* 圆形按钮 */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Comic Sans MS", cursive;
+  font-size: 16px;
+  margin: 5px;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+}
+
+/* 正常状态按钮样式 */
+.order-detail-container button:not(:disabled) {
+  background-color: #ff9ebb; /* 柔和粉色按钮 */
+  color: white;
+}
+
+/* 鼠标悬停在正常按钮上的样式 */
+.order-detail-container button:not(:disabled):hover {
+  background-color: #ff6b8b; /* 深一点的粉色 */
+  transform: translateY(-3px); /* 上浮效果 */
+  box-shadow: 0 6px 0 rgba(0,0,0,0.15);
+}
+
+/* 禁用状态按钮样式 */
+.order-detail-container button:disabled {
+  background-color: #ffebf0; /* 浅粉色禁用状态 */
+  color: #ffccd5; /* 淡粉色文字 */
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* 可以添加一些可爱的装饰元素 */
+.order-detail-container::before {
+  content: "✨";
+  display: block;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.order-detail-container::after {
+  content: "💖";
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 20px;
+}
