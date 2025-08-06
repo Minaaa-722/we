@@ -159,7 +159,7 @@ const ProductDetail = () => {
       return;
     }
     
-    navigate(`/orders/confirm/${productId}/${quantity}`);
+    navigate(`/orders/confirm/${productId}/${remaining}`);
   };
 
   // 加载状态显示
