@@ -18,6 +18,7 @@ const OrderConfirm = () => {
     const { user } = useSelector((state) => state.auth);
 
     const userId = user?.id;
+    const stock = Number(remaining);
 
     const handleSubmit = async () => {
         // 提交时再转换为数字验证
@@ -56,7 +57,7 @@ const OrderConfirm = () => {
         <div className="order-confirm-container">
             <h2>订单确认</h2>
             <div className="form-group">
-                <label>购买数量(剩余库存：{remaining}件)：</label>
+                <label>购买数量(剩余库存：{stock}件)：</label>
                 <div className="quantity-control">
                     <button
                         type="button"
@@ -70,18 +71,18 @@ const OrderConfirm = () => {
                         value={quantity}
                         onChange={(e) => {
                             const value = Number(e.target.value);
-                            if (!isNaN(value) && value >= 1 && value <= remaining) {
+                            if (!isNaN(value) && value >= 1 && value <= stock) {
                                 // 限制输入值在1到maxQuantity之间
                                 setQuantity(value);
                             }
                         }}
                         min={1}
-                        max={remaining}
+                        max={stock}
                         className="quantity-input"
                     />
                     <button
                         type="button"
-                        onClick={() => setQuantity(prev => Math.min(prev + 1, remaining))}
+                        onClick={() => setQuantity(prev => Math.min(prev + 1, stock))}
                         className="quantity-btn plus-btn"
                     >
                         +
