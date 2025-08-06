@@ -12,6 +12,7 @@ router.get('/', productController.getAllProducts);
 router.get('/search', productController.searchProducts);
 
 router.get('/:id', productController.getProductById);
+router.get('/:id/comments',productController.getCommentsByProductId);
 
 
 module.exports = router;

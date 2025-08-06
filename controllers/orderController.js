@@ -197,7 +197,7 @@ exports.getUserOrders = async (req, res) => {
   console.log(`获取用户 ${userId} 的订单列表`);
   try {
     const [result] = await pool.execute(
-      `SELECT id, amount, status, created_at, user_info
+      `SELECT id, amount, status, created_at, user_info, has_comments
        FROM orders 
        WHERE user_id = ? 
        ORDER BY created_at DESC`,
@@ -212,6 +212,7 @@ exports.getUserOrders = async (req, res) => {
       });
     }
 
+
     const ordersWithItems = orders.map(order => {
       let userInfo = {};
       if (order.user_info) {
@@ -222,11 +223,13 @@ exports.getUserOrders = async (req, res) => {
           userInfo = {};
         }
       }
+    
 
       return {
         ...order,
         selectedStyles: userInfo.selected_styles || [],
-        statusText: order.status === 1 ? '待拆盒' : '已拆盒'
+        statusText: order.status === 1 ? '待拆盒' : '已拆盒',
+        hasComments: order.has_comments === 1,
       };
     });
 
@@ -265,3 +268,115 @@ exports.getOrderById = async (req, res) => {
     res.status(500).json({ error: '服务器内部错误' });
   } 
 };
+
+
+// 评论
+// 新增：添加订单评论
+exports.addComment = async (req, res) => {
+  const { orderId } = req.params;
+  const { content, userId } = req.body;
+  console.log(`添加订单 ${orderId} 的评论`);
+  // 修正：正确的参数验证逻辑
+  if (!content || content.trim() === '') {
+    return res.status(400).json({ 
+      error: '玩家秀内容不能为空' 
+    });
+  }
+
+  // 验证用户ID
+  if (!userId) {
+    return res.status(400).json({ 
+      error: '用户信息无效' 
+    });
+  }
+
+  try {
+    // 从连接池获取连接
+    const connection = await pool.getConnection();
+    await connection.beginTransaction();
+
+    // 1. 检查订单是否存在且属于当前用户
+    const [orderRows] = await connection.execute(
+      'SELECT * FROM orders WHERE id = ? AND user_id = ?',
+      [orderId, userId]
+    );
+
+    if (orderRows.length === 0) {
+      await connection.rollback();
+      return res.status(404).json({ 
+        error: '订单不存在或不属于当前用户' 
+      });
+    }
+
+    const order = orderRows[0];
+    const productId = order.product_id;
+
+    console.log(`订单 ${orderId} 状态: ${order.status}`);
+
+    // 2. 检查订单是否已拆盒（只有已拆盒的订单才能评论）
+    if (order.status!== 0) {
+      await connection.rollback();
+      return res.status(400).json({ 
+        error: '只有已拆盒的订单才能评论' 
+      });
+    }
+
+    // 3. 检查是否已评论（修正：处理可能的null值）
+    if (order.has_comments) {
+      await connection.rollback();
+      return res.status(400).json({
+        error: '订单已评论，不能重复评论'
+      });
+    }
+
+    // 4. 添加评论到数据库（修正：SQL语句参数数量不匹配问题）
+    const [commentResult] = await connection.execute(
+      `INSERT INTO comments (
+        product_id, 
+        userid, 
+        content, 
+        created_at
+      ) VALUES (?, ?, ?, ?)`,  // 修正：去掉多余的问号
+      [
+        productId,
+        userId,
+        content,
+        new Date()
+      ]
+    );
+
+    const commentId = commentResult.insertId;
+
+    // 更新订单的评论状态
+    await connection.execute(
+      'UPDATE orders SET has_comments = 1 WHERE id = ?',
+      [orderId]
+    );
+
+    await connection.commit();
+    connection.release();
+
+    console.log(`订单 ${orderId} 评论添加成功，评论ID: ${commentId}`);
+
+    res.status(201).json({
+      success: true,
+      commentId,
+      orderId,
+      content,
+      createdAt: new Date().toISOString()
+    });
+
+  } catch (err) {
+    console.error('添加评论失败:', err);
+    // 发生错误时回滚事务
+    if (connection) {
+      await connection.rollback();
+      connection.release();
+    }
+    res.status(500).json({ 
+      error: '服务器内部错误',
+      detail: err.message 
+    });
+  }
+};
+    

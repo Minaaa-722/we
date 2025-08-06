@@ -133,3 +133,28 @@ exports.searchProducts = async (req, res) => {
     });
   }
 };
+
+exports.getCommentsByProductId = async (req, res) => {
+  const productId = req.params.id;
+  const query = 'SELECT * FROM comments WHERE product_id = ?';
+
+  try {
+    const [results] = await pool.query(query, [productId]);
+    console.log(`查询评论结果: ${results[0]}`);
+
+    res.status(200).json({
+      code: 200,
+      message: '评论获取成功',
+      data: results
+    });
+  } catch (err) {
+    console.error('查询评论失败:', err.stack);
+    res.status(500).json({
+      code: 500,
+      message: '获取评论数据失败',
+      error: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
+  }
+}
+
+
